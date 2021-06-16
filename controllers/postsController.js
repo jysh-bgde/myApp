@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const {body, validationResult} = require('express-validator');
 const posts = require('../models/posts');
+const { post } = require('../routes/posts');
 
 exports.posts_create_get = function(req,res,next){
  res.render('create_post', {title: 'Create Post'})
@@ -40,8 +41,17 @@ exports.posts_create_post = [
 
   }
 ]
-exports.posts_delete_get = function(req,res,next){res.redirect('/')};
-exports.posts_delete_post = function(req,res,next){res.redirect('/')};
+exports.posts_delete_get = function(req,res,next){
+ res.render('posts_delete',{title: 'Delete Post', postid: req.params.postid})};
+
+
+exports.posts_delete_post = function(req,res,next){
+  
+  Posts.findByIdAndRemove(req.params.postid, function deletePost(err){
+    if(err){return next(err);}
+    res.redirect('/home');
+  })
+};
 
 exports.user_post = function(req,res,next)
 {
