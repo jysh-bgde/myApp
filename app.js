@@ -4,6 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var bodyParser = require('body-parser');
+var LocalStrategy = require('passport-local');
+var passportLocalMongoose = require('passport-local-mongoose');
+var User = require('./models/user');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -19,9 +25,24 @@ mongoose.connect(mongoDB,{useNewUrlParser: true, useUnifiedTopology: true, useCr
 var db = mongoose.connection;
 db.on('error', console.error.bind(console,'MongoDB connection error:'));
 
+app.use(require('express-session')({
+  secret: "Any normal Word",
+  resave: false,
+  saveUninitialized: false
+}));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(User.authenticate()));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(bodyParser.urlencoded({extended: true}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 app.use(logger('dev'));
 app.use(express.json());
