@@ -4,22 +4,50 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
   <title><%= title %></title>
 </head>
 <body>
-  <h1>
-    Login Page
-</h1>
-<form action="/login" method="POST">
-    <label for="username">UserName</label>
-    <input type="text" placeholder="username" id="xyz" name="username">
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password">
-    <button>Login</button>
-</form>
-<ul>
-    <!-- <li><a href="/">Home</a></li> -->
-    <li><a href="/register">SignUp</a></li>
-</ul>
+  
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1>
+        Login
+    </h1>
+      <form action="/login" method="POST">
+
+        <div class="mb-3">
+          <label for="username" class="form-label">Username:</label>
+          <input type="text" class="form-control" id="xyz" placeholder="username" id="xyz" name="username" >
+        </div>
+      
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" >
+        </div>
+
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary fw-bold" type="button">Submit</button>
+          <a href="/register" class="btn btn-primary fw-bold" type="button">SignUp</a>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
 </body>
 </html>
