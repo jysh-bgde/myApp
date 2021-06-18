@@ -4,33 +4,31 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Profile</title>
+  <title><%= title %></title>
 </head>
 <body>
- <!-- <%= user.name%>
- <%= user.date_of_birth_formatted%>
- <%= user.country%>
- <%= user.city%>
- <%= user.gender%>
+ <h1>
+  <%= title %>
+ </h1>
+  <p>
+    <%= user.fullname %>
+  </p>
+  <p><%= user.first_name %></p>
+  <p><%= user.Last_name %></p>
+  <p><%= user.date_of_birth_formatted %></p>
+  <p><%= user.country %></p>
+  <p><%= user.city %></p>
+  <p><%= user.gender %></p>
 
- <% if (list_user_posts==null) { %>
-  <h1>NO POSTS</h1>
-  <% } else { %>
- <ul>
-  <% list_user_posts.forEach(function(post){ %>
-    <li><a href= "<%= post.url %>" > <%= post.name %> - </a><%= post.user_id %> -<%= post.details%></li>
-    <% }) %>
-</ul>
-<% } %> -->
+ <a href= "<%= user.url %>">User url:   </a>
+  
+  
 
-<h1>
-  User Profile
-</h1>
-<p>
-  After Login the user will reach here.
-</p>
+
+
+
 <ul>
-  <li><a href="/">Home</a></li>
+  <li><a href="/home">Home</a></li>
   <li><a href="/logout">Logout</a></li>
 </ul>
 

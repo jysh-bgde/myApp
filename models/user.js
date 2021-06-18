@@ -21,7 +21,7 @@ var UserSchema = new Schema(
   
 
   UserSchema
-.virtual('name')
+.virtual('fullname')
 .get(function () {
   return this.first_name + ' ' + this.Last_name;
 });
@@ -29,7 +29,7 @@ var UserSchema = new Schema(
 UserSchema
 .virtual('url')
 .get(function () {
-  return '/user/' + this._id;
+  return '/users/' + this._id;
 });
 
 UserSchema

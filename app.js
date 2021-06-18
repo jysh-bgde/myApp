@@ -5,9 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var bodyParser = require('body-parser');
+// var bodyParser = require('body-parser');
 var LocalStrategy = require('passport-local');
-var passportLocalMongoose = require('passport-local-mongoose');
+// var passportLocalMongoose = require('passport-local-mongoose');
 var User = require('./models/user');
 
 
@@ -38,7 +38,7 @@ passport.use(new LocalStrategy(User.authenticate()));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}))
+// app.use(bodyParser.urlencoded({extended: true}))
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -29,31 +29,39 @@ app.use(passport.session());
 
 /* GET home page. */
 router.get('/', function(req, res,next ) {
-  res.redirect('/home');
+ res.render('index.ejs');
 });
 
-router.get('/home', function(req,res,next){
+router.get('/home', isLoggedIn, function(req,res,next){
   res.render('home', {title: 'Home'});
 } )
-router.get('/users/:userid',isLoggedIn ,function(req,res,next){
-  res.render('user_profile', {title: 'userprofile'});
-} )
+
 router.get('/login', function(req,res,next){
   res.render('login', {title: 'login'});
 } )
 
-router.post("/login",passport.authenticate("local",{
-  successRedirect:"/users/:userid",
-  failureRedirect:"/login"
-}),function (req, res){
+router.post("/login",passport.authenticate("local"),
+function (req, res){
+    res.redirect('/users/'+ req.user._id);
+  
+  
 });
+
 
 router.get('/register', function(req,res,next){
   res.render('registration', {title: 'registration'});
 } )
 router.post("/register",(req,res)=>{
     
-  User.register(new User({username: req.body.username,password: req.body.password,first_name:req.body.first_name,Last_name: req.body.Last_name, date_of_birth: req.body.date_of_birth, country: req.body.country, city: req.body.city, gender: req.body.gender}),req.body.password,function(err,user){
+  User.register(new User({username: req.body.username,
+      password: req.body.password,
+      first_name:req.body.first_name,
+      Last_name: req.body.Last_name,
+      date_of_birth: req.body.date_of_birth,
+      country: req.body.country,
+      city: req.body.city,
+      gender: req.body.gender
+      }),req.body.password,function(err,user){
       if(err){
           console.log(err);
           res.render("registration");
@@ -64,7 +72,7 @@ router.post("/register",(req,res)=>{
   })
 })
 
-router.get("/logout",(req,res)=>{
+router.get("/logout",isLoggedIn,(req,res)=>{
   req.logout();
   res.redirect("/");
 });
@@ -76,12 +84,12 @@ function isLoggedIn(req,res,next) {
   res.redirect("/login");
 }
 
-router.get('/about', function(req,res,next){
+router.get('/about', isLoggedIn, function(req,res,next){
   res.render('about',{title: "About"});
 
 });
 
-router.get('/contact', function(req,res,next){
+router.get('/contact',isLoggedIn, function(req,res,next){
   res.render('contactUs', {title: "ContactUs"});
 
 });
