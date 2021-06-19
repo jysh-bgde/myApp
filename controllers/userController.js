@@ -10,11 +10,10 @@ const { render } = require('ejs');
 
 
 exports.posts_list = function(req,res,next){
-  Posts.find({}, 'user._id')
-  .populate('user._id')
+  Posts.find()
   .exec(function(err, list_posts){
     if(err){return next(err);}
-    res.render('posts_list', {title: 'All Posts', posts_list: list_posts})
+    res.render('home', {title: 'All Posts', posts_list: list_posts, currentuser: req.user})
   })
   
 };

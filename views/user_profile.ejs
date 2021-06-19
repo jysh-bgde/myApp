@@ -5,12 +5,51 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
 </head>
 <body>
- <h1>
-  <%= title %>
- </h1>
-  <p>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        
+          <h1 class=display-1> <%= user.username%></h1>
+
+         <dl class="row fs-4">
+
+          <dt class="col-sm-3">Full Name:</dt>
+          <dd class="col-sm-9"><%= user.fullname %></dd>
+
+          <dt class="col-sm-3">Date of Birth:</dt>
+          <dd class="col-sm-9"><%= user.date_of_birth_formatted %></dd>
+
+          <dt class="col-sm-3">Country:</dt>
+          <dd class="col-sm-9"><%= user.country %></dd>
+
+          <dt class="col-sm-3">City:</dt>
+          <dd class="col-sm-9"><%= user.city %></dd>
+
+          <dt class="col-sm-3">Gender:</dt>
+          <dd class="col-sm-9"><%= user.gender %></dd>
+        
+          <dt class="col-sm-3">User ID:</dt>
+          <dd class="col-sm-9"><%= user._id %></dd>   
+      
+        </dl>
+          <div class="btn-group col-12" role="group" aria-label="Basic example">
+          <a href="/home" type="button" class="btn btn-outline-success">Home</a>
+          <a href="/logout" type="button" class="btn btn-outline-danger">Logout</a>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- <p>
     <%= user.fullname %>
   </p>
   <p><%= user.first_name %></p>
@@ -20,17 +59,17 @@
   <p><%= user.city %></p>
   <p><%= user.gender %></p>
 
- <a href= "<%= user.url %>">User url:   </a>
+ <a href= "<%= user.url %>">User url:   </a> -->
   
   
 
 
 
 
-<ul>
+<!-- <ul>
   <li><a href="/home">Home</a></li>
   <li><a href="/logout">Logout</a></li>
-</ul>
+</ul> -->
 
 </body>
 </html>

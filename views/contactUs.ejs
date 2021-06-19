@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,5 +8,38 @@
 </head>
 <body>
   This is the contactUs page of the Website.
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+  <title><%= title %></title>
+</head>
+<body>
+ <div class="container">
+   <div class="row">
+     <div class="col">
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end sticky-top">
+        <a href="<%= currentuser.url%>" class="btn btn-primary me-md-2" type="button">My Profile</a>
+        <a href="/home" class="btn btn-success" type="button">home</a>
+        <a href="/about" class="btn btn-dark" type="button">about</a>
+        <a href="/logout" class="btn btn-danger" type="button">Logout</a>
+      </div>
+       <h1 class="display-1">Contact </h1>
+      <p class="fs-3"> This is the Contact Page of the website.</p>
+     </div>
+   </div>
+
+ </div>
 </body>
 </html>

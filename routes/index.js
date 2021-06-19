@@ -11,6 +11,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 // var passportLocalMongoose = require('passport-local-mongoose');
 var User = require('../models/user');
+var userController= require('../controllers/userController')
 
 const app = express();
 app.use(require('express-session')({
@@ -32,9 +33,7 @@ router.get('/', function(req, res,next ) {
  res.render('index.ejs');
 });
 
-router.get('/home', isLoggedIn, function(req,res,next){
-  res.render('home', {title: 'Home'});
-} )
+router.get('/home', isLoggedIn, userController.posts_list  )
 
 router.get('/login', function(req,res,next){
   res.render('login', {title: 'login'});
@@ -85,12 +84,12 @@ function isLoggedIn(req,res,next) {
 }
 
 router.get('/about', isLoggedIn, function(req,res,next){
-  res.render('about',{title: "About"});
+  res.render('about',{title: "About", currentuser: req.user});
 
 });
 
 router.get('/contact',isLoggedIn, function(req,res,next){
-  res.render('contactUs', {title: "ContactUs"});
+  res.render('contactUs', {title: "ContactUs", currentuser: req.user});
 
 });
 
