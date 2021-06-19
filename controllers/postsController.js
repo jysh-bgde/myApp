@@ -9,7 +9,7 @@ const posts = require('../models/posts');
 const { post } = require('../routes/posts');
 
 exports.posts_create_get = function(req,res,next){
- res.render('create_post', {title: 'Create Post'})
+ res.render('create_post', {title: 'Create Post', currentuser: req.user})
 };
 
 exports.posts_create_post = [
@@ -18,10 +18,10 @@ exports.posts_create_post = [
 
   (req,res,next) => {
    
-    var id = mongoose.Types.ObjectId(req.params.userid);
+    
     var post = new Posts(
       {
-        user_id : id,
+        user_id : req.user._id,
         post_name: req.body.post_name,
         post_details: req.body.post_details,
       }
@@ -67,7 +67,7 @@ exports.user_post = function(req,res,next)
 
     else
     {
-      res.render('user_post', {title: userpost.post_name , postdetail: userpost.post_details})
+      res.render('user_post', {title: userpost.post_name , postdetail: userpost.post_details , posturl: userpost.url ,userpostid: userpost.user_id.toString(), currentuser: req.user._id.toString()})
     }
   })
 }

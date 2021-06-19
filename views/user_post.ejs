@@ -5,12 +5,33 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
 </head>
 <body>
-  <h1><%= title %></h1>
+  <!-- <h1><%= title %></h1>
  
-<p><%= postdetail %></p>
-
+<p><%= postdetail %></p> -->
+<div class="container">
+  <div class="row">
+    <div class="col">
+       <h1 class="display-1"><%= title %></h1>
+ 
+      <p class="fs-2"><%= postdetail %></p>
+      <!-- <p class="fs-2"><%= userpostid %></p>
+      <p class="fs-2"><%= currentuser %></p> -->
+      <a href="/home" type='button' class="btn btn-outline-success btn-lg fw-bold">Home</a>
+      <% if (userpostid===currentuser) {%>
+      <a href="<%=posturl%>/delete" type='button' class="btn btn-outline-danger btn-lg fw-bold">delete</a>
+      <%}%>
+    </div>
+  </div>
+    
+</div>
 
  
 

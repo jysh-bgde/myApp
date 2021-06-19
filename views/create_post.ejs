@@ -4,10 +4,82 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
   <title><%= title %></title>
 </head>
 <body>
-  <form method = 'POST' action=''>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+          <div class="container-fluid">
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a href="/home" class=" nav-link" >Home </a>
+                 
+                </li>
+                  <a href="<%=currentuser.url%>" class=" nav-link" >My Profile</a>
+                 
+                </li>
+                <li class="nav-item">
+                  <a href="<%=currentuser.url%>/posts/create " class="nav-link active" >New Post</a>
+                </li>
+                <li class="nav-item">
+                  <a href="/about" class="nav-link" >About</a>
+                </li>
+                <li class="nav-item">
+                  <a href="/contact" class="nav-link" >Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a href="/logout" class="nav-link" >Logout</a>
+                </li>
+               
+              </ul>
+              <div class="ms-auto">
+                <form class="d-flex" method="GET" action="/username">
+                  <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="username" value="username">
+                  <button class="btn btn-outline-light">Search</button>
+                </form>
+                </div>
+            </div>
+          </div>
+        </nav>
+        <h1 >Create Post</h1>
+        <form action="" method="POST">
+
+          <div class="mb-3">
+            <label for="postTitle" class="form-label">POST TITLE:</label>
+            <input type="text" class="form-control" id="postTitle" name="post_name"  required='true' >
+          </div>
+        
+          <div class="mb-3">
+            <label for="postDetails" class="form-label">POST DETAILS:</label>
+            <input type="text" class="form-control" id="postDetails" name="post_details" required='true'>
+          </div>
+  
+          <div class="d-grid gap-2">
+            <button type='submit' class="btn btn-outline-success fw-bold">Submit</button>
+            <!-- <a href="/home" type='button' class="btn btn-outline-primary fw-bold">Home</a> -->
+          </div>
+      
+  
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <!-- <form method = 'POST' action=''>
     <div>
       <label for="postTitle"> POST TITLE:
         <input type="text" id=postTitle placeholder="post title" name='post_name' required='true'>
@@ -25,6 +97,7 @@
     </div>
 
     
-  </form>
+  </form> -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

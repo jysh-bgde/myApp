@@ -37,31 +37,70 @@
  
   <div class="container">
     <div class="row">
-      <div class="col">
-        <h1> <%= title %></h1>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end sticky-top">
-          <a href="<%=currentuser.url%>" class="btn btn-primary me-md-2" type="button">My Profile</a>
-          <a href="/about" class="btn btn-success" type="button">About</a>
-          <a href="/contact" class="btn btn-dark" type="button">contact</a>
-          <a href="/logout" class="btn btn-danger" type="button">Logout</a>
-        </div>
-        <% posts_list.forEach(function(post){ %>
-        <div class="card  my-4" style="width: 18rem;">
-          <!-- <img src="" class="card-img-top" alt="postImage"> -->
-          <div class="card-body px-auto">
-            <h5 class="card-title"> <%= post.post_name %> </h5>
-            <p class="card-text"><%= post.post_details%></p>
-            <a href="<%= post.url %>" class="btn btn-primary">Go to this post</a>
+      <div class="col ">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top ">
+          <div class="container-fluid">
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a href="/home" class=" nav-link active" >Home </a>
+                 
+                </li>
+                  <a href="<%=currentuser.url%>" class=" nav-link" >My Profile</a>
+                 
+                </li>
+                <li class="nav-item">
+                  <a href="<%=currentuser.url%>/posts/create " class="nav-link" >New Post</a>
+                </li>
+                <li class="nav-item">
+                  <a href="/about" class="nav-link" >About</a>
+                </li>
+                <li class="nav-item">
+                  <a href="/contact" class="nav-link" >Contact</a>
+                </li>
+                <li class="nav-item">
+                  <a href="/logout" class="nav-link" >Logout</a>
+                </li>
+               
+              </ul>
+              <div class="ms-auto">
+              <form class="d-flex" method="GET" action="/username">
+                <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="username" value="username">
+                <button class="btn btn-outline-light">Search</button>
+              </form>
+              </div>
+            </div>
           </div>
-        </div>
-        <% }) %>
+        </nav>
+        
+        
       </div>
-     
     </div>
-
+     <div class="row ">
+       
+      <h1> <%= title %></h1>
+      <ul>
+      <% posts_list.forEach(function(post){ %>
+      <div class="card  my-4" style="width: 18rem;">
+        <!-- <img src="" class="card-img-top" alt="postImage"> -->
+        <li class="card-body px-auto " style="list-style: none;">
+          <h5 class="card-title"> <%= post.post_name %> </h5>
+          <p class="card-text"><%= post.post_details%></p>
+          <a href="<%= post.url %>" class="btn btn-primary">Go to this post</a>
+        </li>
+      </div>
+      <% }) %>
+      </ul>
+     
+    
+     </div>
   </div>
 
 
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

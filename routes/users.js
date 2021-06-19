@@ -4,7 +4,8 @@ var router = express.Router();
 var userController = require('../controllers/userController')
 
 
-router.get('/',isLoggedIn, userController.posts_list )
+// router.get('/',isLoggedIn, userController.posts_list )
+
 router.get('/:userid',isLoggedIn, userController.user_profile )
 
 function isLoggedIn(req,res,next) {

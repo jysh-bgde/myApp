@@ -41,7 +41,7 @@ router.get('/login', function(req,res,next){
 
 router.post("/login",passport.authenticate("local"),
 function (req, res){
-    res.redirect('/users/'+ req.user._id);
+    res.redirect('/home');
   
   
 });
@@ -92,5 +92,6 @@ router.get('/contact',isLoggedIn, function(req,res,next){
   res.render('contactUs', {title: "ContactUs", currentuser: req.user});
 
 });
+router.get('/username',isLoggedIn, userController.username);
 
 module.exports = router;

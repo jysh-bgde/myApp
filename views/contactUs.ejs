@@ -29,17 +29,56 @@
  <div class="container">
    <div class="row">
      <div class="col">
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container-fluid">
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a href="/home" class=" nav-link " >Home </a>
+               
+              </li>
+                <a href="<%=currentuser.url%>" class=" nav-link" >My Profile</a>
+               
+              </li>
+              <li class="nav-item">
+                <a href="<%=currentuser.url%>/posts/create " class="nav-link" >New Post</a>
+              </li>
+              <li class="nav-item">
+                <a href="/about" class="nav-link" >About</a>
+              </li>
+              <li class="nav-item">
+                <a href="/contact" class="nav-link active" >Contact</a>
+              </li>
+              <li class="nav-item">
+                <a href="/logout" class="nav-link" >Logout</a>
+              </li>
+             
+            </ul>
+            <div class="ms-auto">
+              <form class="d-flex" method="GET" action="/username">
+                <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="username" value="username">
+                <button class="btn btn-outline-light">Search</button>
+              </form>
+              </div>
+          </div>
+        </div>
+      </nav>
+      <!-- <div class="d-grid gap-2 d-md-flex justify-content-md-end sticky-top">
         <a href="<%= currentuser.url%>" class="btn btn-primary me-md-2" type="button">My Profile</a>
         <a href="/home" class="btn btn-success" type="button">home</a>
         <a href="/about" class="btn btn-dark" type="button">about</a>
         <a href="/logout" class="btn btn-danger" type="button">Logout</a>
-      </div>
+      </div> -->
        <h1 class="display-1">Contact </h1>
       <p class="fs-3"> This is the Contact Page of the website.</p>
      </div>
    </div>
 
  </div>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>
 </html>

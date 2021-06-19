@@ -74,7 +74,7 @@ exports.user_profile = function(req,res,next){
       return next(err);
     }
     res.render('user_profile',{title: results.user.username,
-      user: results.user, user_posts_list: results.user_posts_list})
+      user: results.user, user_posts_list: results.user_posts_list, currentuser: req.user})
 
 
   });
@@ -95,7 +95,40 @@ exports.user_profile = function(req,res,next){
   //       if(user_posts_list==null)
   //       console.log("No posts")
   //     })
-      
+
+  
+  exports.username = function(req,res,next){
+    // const origin = req.protocol + '://' + req.get('host')
+    // const url = new URL(
+    //   req.originalUrl, origin
+    // );
+    
+    // const user_name= url.searchParams.get('username')
+    async.parallel({
+      user: function(callback){
+        User.find({'username': req.query.username }).exec(callback)
+      },
+      user_posts_list: function(callback){
+        Posts.find({'userid': req.params.postid}).exec(callback)
+      },
+    }, function(err, results){
+      if(err){return next(err);}
+  
+      if(results.user==null){
+        var err = new Error('User not found');
+        err.status = 404;
+        return next(err);
+      }
+      console.log(req.query.username)
+      res.render('user_profile',{title: results.user.username,
+        user: results.user, user_posts_list: results.user_posts_list, currentuser: req.user})
+  
+  
+    });
+    
+       
+     
+    };
   
 
 
