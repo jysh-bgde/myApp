@@ -26,12 +26,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
+  
   <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
       .blog-preview {
   
@@ -43,14 +45,34 @@
 .blog-preview:hover{
   box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
 }
+.fa {
+  font-size: 30px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.fa-click {
+  font-size: 30px;
+  cursor: pointer;
+  user-select: none;
+  color: rgb(252, 8, 8);
+}
+
+.fa:hover {
+  color: rgb(252, 8, 8);
+}
+
+
+
+
     </style>
 </head>
 <body>
  
-  <div class="container">
-    <div class="row">
-      <div class="col ">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary  ">
+  <!-- <div class="container"> -->
+    <!-- <div class="row"> -->
+      <!-- <div class="col "> -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top ">
           <div class="container-fluid ">
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,8 +112,9 @@
         </nav>
         
         
-      </div>
-    </div>
+      <!-- </div> -->
+    <!-- </div> -->
+    <div class="container-fluid">
      <div class="row ">
        
       <h1> <%= title %></h1>
@@ -110,15 +133,31 @@
 
       <div class="col">
         <% posts_list.forEach(function(post){ %>
-          <div class="blog-preview">
+          <div class="blog-preview ">
             <div class="title">
-              <h5><%= post.post_name %></h5>
+              <h5 ><%= post.post_name %></h5>
+           
             </div>
-            <div class="details d-sm-flex ">
+            <div class="details">
               <p class=""><%= post.post_details%></p>
-              <a href="<%= post.url %>" class="btn btn-primary ms-auto">Go to this post</a>
+              <!-- <span class="material-icons">
+                favorite
+                </span> -->
+               
+                
+              <div>
+                <i onclick="myFunction(this)" class="fa fa-thumbs-up" style='display:inline;'></i>
+                
+              </div>
+                
+                
+              <a href="<%= post.url %>" class="btn btn-primary  my-1 ms-auto">Go to this post</a>
+              
+              <% if (post.user_id.toString()===currentuser._id.toString()) {%>
+                <a href="<%=post.url%>/delete" type='button' class="btn btn-outline-danger mx-3 my-1 fw-bold">Delete</a>
+                  <%}%>
             </div>
-          
+           
 
           </div>
           <% }) %>
@@ -127,8 +166,15 @@
      
     
      </div>
-  </div>
-
+    </div>
+  <!-- </div> -->
+  <script>
+    function myFunction(x) {
+      x.classList.toggle("fa-click");
+      x.classList.contains("fa-click") ? x.innerHTML = "<p style='display:inline;'>Liked</p>": x.innerHTML = ""
+      
+    }
+    </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 </body>

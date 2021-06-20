@@ -25,10 +25,10 @@
     </style>
 </head>
 <body>
-  <div class="container">
+  <!-- <div class="container"> -->
 
     
-    <div class="row">
+    <!-- <div class="row"> -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-primary ">
         <div class="container-fluid">
           
@@ -67,61 +67,64 @@
           </div>
         </div>
       </nav>
+      <!-- </div> -->
+
+      <div class="container-fluid">
+        
+        
+        <div class="row">
+        <div class="col">
+          
+            <h1 class=display-1> <%= user.username%></h1>
+  
+           <dl class="row fs-4">
+  
+            <dt class="col-sm-3">Full Name:</dt>
+            <dd class="col-sm-9"><%= user.fullname %></dd>
+  
+            <dt class="col-sm-3">Date of Birth:</dt>
+            <dd class="col-sm-9"><%= user.date_of_birth_formatted %></dd>
+  
+            <dt class="col-sm-3">Country:</dt>
+            <dd class="col-sm-9"><%= user.country %></dd>
+  
+            <dt class="col-sm-3">City:</dt>
+            <dd class="col-sm-9"><%= user.city %></dd>
+  
+            <dt class="col-sm-3">Gender:</dt>
+            <dd class="col-sm-9"><%= user.gender %></dd>
+          
+            <dt class="col-sm-3">User ID:</dt>
+            <dd class="col-sm-9"><%= user._id %></dd>   
+        
+          </dl>
+            
+        </div>
       </div>
-
-
-      <div class="row">
-      <div class="col">
-        
-          <h1 class=display-1> <%= user.username%></h1>
-
-         <dl class="row fs-4">
-
-          <dt class="col-sm-3">Full Name:</dt>
-          <dd class="col-sm-9"><%= user.fullname %></dd>
-
-          <dt class="col-sm-3">Date of Birth:</dt>
-          <dd class="col-sm-9"><%= user.date_of_birth_formatted %></dd>
-
-          <dt class="col-sm-3">Country:</dt>
-          <dd class="col-sm-9"><%= user.country %></dd>
-
-          <dt class="col-sm-3">City:</dt>
-          <dd class="col-sm-9"><%= user.city %></dd>
-
-          <dt class="col-sm-3">Gender:</dt>
-          <dd class="col-sm-9"><%= user.gender %></dd>
-        
-          <dt class="col-sm-3">User ID:</dt>
-          <dd class="col-sm-9"><%= user._id %></dd>   
+  
+  
+      <div class="row ">
+        <div class="col">
+          <% user_posts_list && user_posts_list.forEach(function(post){ %>
+            <div class="blog-preview">
+              <div class="title">
+                <h5><%= post.post_name %></h5>
+              </div>
+              <div class="details d-sm-flex ">
+                <p class=""><%= post.post_details%></p>
+                <a href="<%= post.url %>" class="btn btn-primary ms-auto">Go to this post</a>
+              </div>
+            
+  
+            </div>
+            <% }) %>
+  
+        </div>
+       
       
-        </dl>
-          
+       </div>
       </div>
-    </div>
-
-
-    <div class="row ">
-      <div class="col">
-        <% user_posts_list && user_posts_list.forEach(function(post){ %>
-          <div class="blog-preview">
-            <div class="title">
-              <h5><%= post.post_name %></h5>
-            </div>
-            <div class="details d-sm-flex ">
-              <p class=""><%= post.post_details%></p>
-              <a href="<%= post.url %>" class="btn btn-primary ms-auto">Go to this post</a>
-            </div>
-          
-
-          </div>
-          <% }) %>
-
-      </div>
-     
-    
-     </div>
-    </div>
+    <!-- </div> -->
   
  
   <!-- <p>
