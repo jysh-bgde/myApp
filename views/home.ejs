@@ -32,20 +32,32 @@
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
     />
+    <style>
+      .blog-preview {
+  
+        border-bottom: 1px solid #e8e3e3;
+    padding: 13px 0px;
+    margin: 5px 0px;
+}
+
+.blog-preview:hover{
+  box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+}
+    </style>
 </head>
 <body>
  
   <div class="container">
     <div class="row">
       <div class="col ">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top ">
-          <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary  ">
+          <div class="container-fluid ">
             
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
+            <div class="collapse navbar-collapse " id="navbarNavDropdown">
+              <ul class="navbar-nav ">
                 <li class="nav-item">
                   <a href="/home" class=" nav-link active" >Home </a>
                  
@@ -83,10 +95,10 @@
      <div class="row ">
        
       <h1> <%= title %></h1>
-      <ul>
+      <!-- <ul>
       <% posts_list.forEach(function(post){ %>
       <div class="card  my-4" style="width: 18rem;">
-        <!-- <img src="" class="card-img-top" alt="postImage"> -->
+        <img src="" class="card-img-top" alt="postImage">
         <li class="card-body px-auto " style="list-style: none;">
           <h5 class="card-title"> <%= post.post_name %> </h5>
           <p class="card-text"><%= post.post_details%></p>
@@ -94,7 +106,24 @@
         </li>
       </div>
       <% }) %>
-      </ul>
+      </ul> -->
+
+      <div class="col">
+        <% posts_list.forEach(function(post){ %>
+          <div class="blog-preview">
+            <div class="title">
+              <h5><%= post.post_name %></h5>
+            </div>
+            <div class="details d-sm-flex ">
+              <p class=""><%= post.post_details%></p>
+              <a href="<%= post.url %>" class="btn btn-primary ms-auto">Go to this post</a>
+            </div>
+          
+
+          </div>
+          <% }) %>
+
+      </div>
      
     
      </div>

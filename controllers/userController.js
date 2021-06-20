@@ -63,7 +63,7 @@ exports.user_profile = function(req,res,next){
       User.findById(req.params.userid).exec(callback)
     },
     user_posts_list: function(callback){
-      Posts.find({'userid': req.params.postid}).exec(callback)
+      Posts.find({'user_id': req.user._id}).exec(callback)
     },
   }, function(err, results){
     if(err){return next(err);}
@@ -73,6 +73,7 @@ exports.user_profile = function(req,res,next){
       err.status = 404;
       return next(err);
     }
+    // console.log(results.user_posts_list)
     res.render('user_profile',{title: results.user.username,
       user: results.user, user_posts_list: results.user_posts_list, currentuser: req.user})
 
@@ -104,24 +105,28 @@ exports.user_profile = function(req,res,next){
     // );
     
     // const user_name= url.searchParams.get('username')
+    var posts =[];
     async.parallel({
       user: function(callback){
         User.find({'username': req.query.username }).exec(callback)
       },
-      user_posts_list: function(callback){
-        Posts.find({'userid': req.params.postid}).exec(callback)
+      user_posts_list: async function(callback){
+        const user_id = await User.find({'username': req.query.username }).populate('_id')
+        // console.log(user_id[0]._id._id)
+        posts = await Posts.find({user_id: mongoose.Types.ObjectId(user_id[0]._id._id)})
+        // console.log(posts)
       },
     }, function(err, results){
       if(err){return next(err);}
   
-      if(results.user==null){
+      if(results.user[0]==null){
         var err = new Error('User not found');
         err.status = 404;
         return next(err);
       }
-      console.log(req.query.username)
-      res.render('user_profile',{title: results.user.username,
-        user: results.user, user_posts_list: results.user_posts_list, currentuser: req.user})
+      // console.log(posts)
+      res.render('user_profile',{title: results.user[0].username,
+        user: results.user[0], user_posts_list: posts, currentuser: req.user})
   
   
     });

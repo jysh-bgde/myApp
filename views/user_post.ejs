@@ -25,9 +25,11 @@
       <!-- <p class="fs-2"><%= userpostid %></p>
       <p class="fs-2"><%= currentuser %></p> -->
       <a href="/home" type='button' class="btn btn-outline-success btn-lg fw-bold">Home</a>
+      <button type="button" class="btn btn-outline-primary btn-lg fw-bold" onclick="javascript:history.back()">Back</button>
       <% if (userpostid===currentuser) {%>
-      <a href="<%=posturl%>/delete" type='button' class="btn btn-outline-danger btn-lg fw-bold">delete</a>
-      <%}%>
+      <a href="<%=posturl%>/delete" type='button' class="btn btn-outline-danger btn-lg fw-bold">Delete</a>
+      
+        <%}%>
     </div>
   </div>
     
