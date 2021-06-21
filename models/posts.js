@@ -6,6 +6,8 @@ var PostsSchema = new Schema(
         user_id : {type: Schema.Types.ObjectId, ref:'User', required: true},
         post_name: {type: String, required: true, maxLength: 100},
         post_details: {type: String, required: true, maxLength: 100},
+        posted_at: {type: Date, required: true , default: Date.now},
+        likes_count: {type: Number, default: 0}
        
     }
 );

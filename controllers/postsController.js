@@ -46,11 +46,12 @@ exports.posts_delete_get = function(req,res,next){
 
 
 exports.posts_delete_post = function(req,res,next){
-  
+  User.updateOne({_id: req.user._id}, {$pull:{liked_posts: {$in: req.params.postid}}}, (err) => { if(err) {return next(err);}} );
   Posts.findByIdAndRemove(req.params.postid, function deletePost(err){
     if(err){return next(err);}
     res.redirect('/home');
   })
+
 };
 
 exports.user_post = function(req,res,next)

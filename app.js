@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,6 +10,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 // var passportLocalMongoose = require('passport-local-mongoose');
 var User = require('./models/user');
+
 
 
 var indexRouter = require('./routes/index');

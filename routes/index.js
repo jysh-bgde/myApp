@@ -11,7 +11,19 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local');
 // var passportLocalMongoose = require('passport-local-mongoose');
 var User = require('../models/user');
+var Post = require('../models/posts');
 var userController= require('../controllers/userController')
+let Pusher = require('pusher');
+
+
+const pusher = new Pusher({
+  appId: "1222639",
+  key: "0fe554d234b992ab53fd",
+  secret: "544439e54f33e09a3f63",
+  cluster: "ap2",
+  useTLS: true
+});
+
 
 const app = express();
 app.use(require('express-session')({
@@ -26,6 +38,8 @@ passport.deserializeUser(User.deserializeUser());
 passport.use(new LocalStrategy(User.authenticate()));
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 
 
 /* GET home page. */
@@ -44,6 +58,24 @@ function (req, res){
     res.redirect('/home');
   
   
+});
+
+router.post('/posts/:id/act',isLoggedIn, (req, res, next) => {
+  const action = req.body.action;
+  // console.log(action)
+  // console.log(req.params.id)
+  const counter = action === 'Like' ? 1 : -1;
+  
+  Post.updateOne({_id: req.params.id}, {$inc: {likes_count: counter}}, {}, (err, numberAffected) => {
+    if(err){return next(err);}
+    pusher.trigger('post-events', 'postAction', {action: action, postId: req.params.id}, req.body.socketId);
+      res.send('');
+
+  
+  });
+
+  action==='Like' ? User.updateOne({_id: req.user._id}, {$addToSet:{liked_posts: req.params.id}}, (err) => { if(err) {return next(err);}} ) :  User.updateOne({_id: req.user._id}, {$pull:{liked_posts: {$in: req.params.id}}}, (err) => { if(err) {return next(err);}} );
+
 });
 
 
