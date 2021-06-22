@@ -22,6 +22,16 @@
 .blog-preview:hover{
   box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
 }
+
+
+     body{
+  background-color: #1d2025;
+}
+
+div{
+  color: #e8e3e3;
+}
+  
     </style>
 </head>
 <body>
@@ -114,7 +124,11 @@
             
         </div>
       </div>
-  
+      <div class="row">
+        <div class="col">
+          <a href="/users/<%= user._id%>/friends" class="text-decoration-none text-success"><b> Friends<b class="mx-2 text-decoration-none"> <%= user.friends.length %></b></b></a>
+        </div>
+      </div>
   
       <div class="row ">
         <div class="col">
@@ -126,6 +140,17 @@
               </div>
               <div class="details">
                 <p class=""><%= post.post_details%></p>
+                <div>
+                  <% if (currentuser.liked_posts.includes(post._id)){ %>
+                    <button onclick="actOnPost(event);"  style='display:inline;' class="btn btn-outline-warning btn-sm" data-post-id ="<%= post._id%>">Unlike</button>
+                    <span id="likes-count-<%= post._id%>"><%= post.likes_count%> </span>
+    
+                    <%}else{%>
+                  <button onclick="actOnPost(event);"  style='display:inline;' class="btn btn-outline-warning btn-sm" data-post-id ="<%= post._id%>">Like</button>
+                  <span id="likes-count-<%= post._id%>"><%= post.likes_count%> </span>
+                      <%}%>
+  
+                </div>
 
                 <a href="<%= post.url %>" class="btn btn-primary  my-1 ms-auto">Go to this post</a>
                 <% if (post.user_id.toString()===currentuser._id.toString()) {%>
@@ -199,6 +224,65 @@
   });
 };
   </script>
+  
+  <script>
+      var updatePostStats = {
+          Like: function (postId) {
+              document.querySelector('#likes-count-' + postId).textContent++;
+          },
+          Unlike: function(postId) {
+              document.querySelector('#likes-count-' + postId).textContent--;
+          }
+      };
+  
+      var toggleButtonText = {
+          Like: function(button) {
+              button.textContent = "Unlike";
+          },
+          Unlike: function(button) {
+              button.textContent = "Like";
+          }
+      };
+  
+      var actOnPost = function (event) {
+        // console.log(event.target+1)
+          var postId = event.target.dataset.postId;
+          // console.log(event.target.dataset)
+          // console.log(event.target.dataset.postId)
+          var action = event.target.textContent.trim();
+          // console.log(action)
+
+          toggleButtonText[action](event.target);
+          updatePostStats[action](postId);
+          axios.post('/posts/' + postId + '/act', { action: action })
+          .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error.response.data);  
+     console.log(error.response.status);  
+     console.log(error.response.headers); 
+  });
+      };
+  </script>
+   <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+    <script>
+      var pusher = new Pusher('0fe554d234b992ab53fd',{
+        cluster: 'ap2'
+      });
+
+      var socketId;
+      pusher.connection.bind('connected', function(){
+        socketId = pusher.connection.socket_id;
+      });
+      var channel = pusher.subscribe('post-events');
+      channel.bind('postAction', function(data){
+        console.log(data);
+        var action = data.action;
+        // updatePostStats[action](data.postId);
+      });
+
+    </script>
 
 
 

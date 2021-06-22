@@ -62,7 +62,13 @@
   color: rgb(252, 8, 8);
 }
 
+.bg{
+  background-color: #1d2025;
+}
 
+div{
+  color: #e8e3e3;
+}
 
 
     </style>
@@ -117,6 +123,7 @@
     <div class="container-fluid">
      <div class="row ">
        
+       
       <h1> <%= title %></h1>
       <!-- <ul>
       <% posts_list.forEach(function(post){ %>
@@ -131,7 +138,8 @@
       <% }) %>
       </ul> -->
 
-      <div class="col">
+      <div class="col bg">
+        
         <% posts_list.forEach(function(post){ %>
           <div class="blog-preview ">
             <div class="title">
@@ -148,11 +156,11 @@
                 
               <div>
                 <% if (currentuser.liked_posts.includes(post._id)){ %>
-                  <button onclick="actOnPost(event);"  style='display:inline;' class="btn btn-warning btn-sm" data-post-id ="<%= post._id%>">Unlike</button>
+                  <button onclick="actOnPost(event);"  style='display:inline;' class="btn btn-outline-warning btn-sm" data-post-id ="<%= post._id%>">Unlike</button>
                   <span id="likes-count-<%= post._id%>"><%= post.likes_count%> </span>
   
                   <%}else{%>
-                <button onclick="actOnPost(event);"  style='display:inline;' class="btn btn-warning btn-sm" data-post-id ="<%= post._id%>">Like</button>
+                <button onclick="actOnPost(event);"  style='display:inline;' class="btn btn-outline-warning btn-sm" data-post-id ="<%= post._id%>">Like</button>
                 <span id="likes-count-<%= post._id%>"><%= post.likes_count%> </span>
                     <%}%>
 

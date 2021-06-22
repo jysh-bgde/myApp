@@ -7,6 +7,9 @@ var userController = require('../controllers/userController')
 // router.get('/',isLoggedIn, userController.posts_list )
 
 router.get('/:userid',isLoggedIn, userController.user_profile )
+router.get('/:userid/friends',isLoggedIn, userController.user_friends )
+
+
 
 function isLoggedIn(req,res,next) {
   if(req.isAuthenticated()){

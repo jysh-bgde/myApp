@@ -13,6 +13,12 @@ exports.posts_list = function(req,res,next){
   Posts.find()
   .exec(function(err, list_posts){
     if(err){return next(err);}
+
+    list_posts.sort(function(a, b) {
+      var c = new Date(a.posted_at);
+      var d = new Date(b.posted_at);
+      return c-d;
+  });
     res.render('home', {title: 'All Posts', posts_list: list_posts, currentuser: req.user})
   })
   
@@ -75,7 +81,11 @@ exports.user_profile = function(req,res,next){
     }
     // console.log(results.user_posts_list)
     res.render('user_profile',{title: results.user.username,
-      user: results.user, user_posts_list: results.user_posts_list, currentuser: req.user})
+      user: results.user, user_posts_list: results.user_posts_list.sort(function(a, b) {
+        var c = new Date(a.posted_at);
+        var d = new Date(b.posted_at);
+        return c-d;
+    }), currentuser: req.user})
 
 
   });
@@ -115,6 +125,11 @@ exports.user_profile = function(req,res,next){
         // console.log(user_id[0]._id._id)
         posts = await Posts.find({user_id: mongoose.Types.ObjectId(user_id[0]._id._id)})
         // console.log(posts)
+        posts.sort(function(a, b) {
+          var c = new Date(a.posted_at);
+          var d = new Date(b.posted_at);
+          return c-d;
+      });
       },
     }, function(err, results){
       if(err){return next(err);}
@@ -135,6 +150,20 @@ exports.user_profile = function(req,res,next){
      
     };
   
+    exports.user_friends = function(req,res,next){
+      User.findById(req.params.userid).populate('friends').exec(function(err, user){
+        if(err){return next(err);}
+        if(user==null){
+          var err = new Error('User not found');
+          err.status = 404;
+          return next(err);
+        }
+        
+        res.render('friends', {friends: user.friends, currentuser : req.user, title: user.username + 'friends'})
+
+       
+      })
+    }
 
 
   

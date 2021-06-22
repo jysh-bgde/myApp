@@ -13,13 +13,13 @@
   <title><%= title %></title>
   <style>
     body{
-  background-color: #1d2025;
+ background-color: #1d2025;
 }
 
 div{
-  color: #e8e3e3;
+ color: #e8e3e3;
 }
-  </style>
+ </style>
 </head>
 <body>
  <!-- <div class="container"> -->
@@ -37,14 +37,14 @@ div{
                 <a href="/home" class=" nav-link " >Home </a>
                
               </li>
-                <a href="<%=currentuser.url%>" class=" nav-link" >Profile</a>
+                <a href="<%=currentuser.url%>" class=" nav-link active" >Profile</a>
                
               </li>
               <li class="nav-item">
                 <a href="<%=currentuser.url%>/posts/create " class="nav-link" >New Post</a>
               </li>
               <li class="nav-item">
-                <a href="/about" class="nav-link active" >About</a>
+                <a href="/about" class="nav-link " >About</a>
               </li>
               <li class="nav-item">
                 <a href="/contact" class="nav-link" >Contact</a>
@@ -72,8 +72,12 @@ div{
       <div class="container-fluid">
         <div class="row">
           <div class="col">
-            <h1 class="display-1">About </h1>
-           <p class="fs-3"> This is the About Page of the website.</p>
+            <h1 class="display-1 d-inline">Friends </h1>
+            <span><b><% friends.length%><b></span>
+              <button type="button" class="btn btn-outline-primary  fw-bold" onclick="javascript:history.back()">Back</button>
+            <% friends.forEach(function(friend) {%>
+           <p class="fs-3"> <%= friend.username %></p>
+           <% }) %>
 
           </div>
         </div>

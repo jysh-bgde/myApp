@@ -11,7 +11,17 @@
       integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
     />
+    <style>
+      body{
+   background-color: #1d2025;
+ }
+ 
+ div{
+   color: #e8e3e3;
+ }
+   </style>
 </head>
+
 <body>
   <!-- <h1><%= title %></h1>
  
@@ -27,9 +37,9 @@
       <!-- <p class="fs-2"><%= userpostid %></p>
       <p class="fs-2"><%= currentuser %></p> -->
       <a href="/home" type='button' class="btn btn-outline-success btn-lg fw-bold">Home</a>
-      <button type="button" class="btn btn-outline-primary btn-lg fw-bold" onclick="javascript:history.back()">Back</button>
+      <button type="button" class="btn btn-outline-primary btn-lg fw-bold mx-3" onclick="javascript:history.back()">Back</button>
       <% if (userpostid===currentuser) {%>
-      <a href="<%=posturl%>/delete" type='button' class="btn btn-outline-danger btn-lg fw-bold my-1">Delete</a>
+      <a href="<%=posturl%>/delete" type='button' class="btn btn-outline-danger btn-lg fw-bold my-2">Delete</a>
       
         <%}%>
     </div>
