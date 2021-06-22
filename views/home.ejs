@@ -84,7 +84,7 @@
                   <a href="/home" class=" nav-link active" >Home </a>
                  
                 </li>
-                  <a href="<%=currentuser.url%>" class=" nav-link" >My Profile</a>
+                  <a href="<%=currentuser.url%>" class=" nav-link" >Profile</a>
                  
                 </li>
                 <li class="nav-item">
@@ -135,8 +135,8 @@
         <% posts_list.forEach(function(post){ %>
           <div class="blog-preview ">
             <div class="title">
-              <h5 ><%= post.post_name %></h5>
-              <small><%= post.posted_at %> </small>
+              <h5 class="d-inline me-3" ><%= post.post_name %></h5>
+              <small class="mx-3"><%= post.posted_at_formatted %> </small>
            
             </div>
             <div class="details">

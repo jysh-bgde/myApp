@@ -19,7 +19,9 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col">
-       <h1 class="display-1"><%= title %></h1>
+      <h1 class="display-1 d-md-inline"><b><%= title %></b></h1>
+      <small class="p fs-5 mx-5"><b><%= user_name %></b></small> 
+      <p><%=postedAt%></p>
  
       <p class="fs-2"><%= postdetail %></p>
       <!-- <p class="fs-2"><%= userpostid %></p>
@@ -27,7 +29,7 @@
       <a href="/home" type='button' class="btn btn-outline-success btn-lg fw-bold">Home</a>
       <button type="button" class="btn btn-outline-primary btn-lg fw-bold" onclick="javascript:history.back()">Back</button>
       <% if (userpostid===currentuser) {%>
-      <a href="<%=posturl%>/delete" type='button' class="btn btn-outline-danger btn-lg fw-bold">Delete</a>
+      <a href="<%=posturl%>/delete" type='button' class="btn btn-outline-danger btn-lg fw-bold my-1">Delete</a>
       
         <%}%>
     </div>

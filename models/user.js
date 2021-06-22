@@ -15,7 +15,8 @@ var UserSchema = new Schema(
     country: {type: String,  required: true, maxLength: 100},
     city: {type: String,  required: true, maxLength: 100},
     gender: {type: String,  required: true, maxLength: 100},
-    liked_posts: [Schema.Types.ObjectId]
+    liked_posts: [Schema.Types.ObjectId],
+    friends: [Schema.Types.ObjectId]
   }
   );
   

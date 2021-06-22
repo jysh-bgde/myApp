@@ -41,7 +41,7 @@
                 <a href="/home" class=" nav-link" >Home </a>
                
               </li>
-                <a href="<%=currentuser.url%>" class=" nav-link active" >My Profile</a>
+                <a href="<%=currentuser.url%>" class=" nav-link active" >Profile</a>
                
               </li>
               <li class="nav-item">
@@ -75,7 +75,20 @@
         <div class="row">
         <div class="col">
           
-            <h1 class=display-1> <%= user.username%></h1>
+            <h1 class='display-1 d-inline'> <%= user.username%></h1>
+            <%if (currentuser._id.toString() !== user._id.toString() ) {%>
+                
+              
+             
+              
+            <% if(currentuser.friends.includes(user._id)) {%>
+            <button onclick="actOnFriend(event);"  style='display:inline;' class="btn btn-outline-success btn-lg mx-5" data-user-id ="<%= user._id%>">Unfriend</button>
+            <%}else{%>
+            <button onclick="actOnFriend(event);"  style='display:inline;' class="btn btn-outline-success btn-lg mx-5" data-user-id ="<%= user._id%>">Friend</button>
+            <%}%>
+            <%}%>
+
+
   
            <dl class="row fs-4">
   
@@ -108,11 +121,16 @@
           <% user_posts_list && user_posts_list.forEach(function(post){ %>
             <div class="blog-preview">
               <div class="title">
-                <h5><%= post.post_name %></h5>
+                <h5 class="d-inline me-3"><%= post.post_name %></h5>
+                <small class="mx-3"><%= post.posted_at_formatted %> </small>
               </div>
-              <div class="details d-sm-flex ">
+              <div class="details">
                 <p class=""><%= post.post_details%></p>
-                <a href="<%= post.url %>" class="btn btn-primary ms-auto">Go to this post</a>
+
+                <a href="<%= post.url %>" class="btn btn-primary  my-1 ms-auto">Go to this post</a>
+                <% if (post.user_id.toString()===currentuser._id.toString()) {%>
+                  <a href="<%=post.url%>/delete" type='button' class="btn btn-outline-danger mx-3 my-1 fw-bold">Delete</a>
+                    <%}%>
               </div>
             
   
@@ -149,6 +167,38 @@
   <li><a href="/logout">Logout</a></li>
 </ul> -->
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+
+  var toggleButtonText = {
+    Friend: function(button) {
+      button.textContent = "Unfriend";
+    },
+    Unfriend: function(button) {
+      button.textContent = "Friend";
+    }
+  };
+
+  var actOnFriend = function (event) {
+        // console.log(event.target+1)
+          var userId = event.target.dataset.userId;
+          // console.log(userId)
+          // console.log(event.target.dataset.postId)
+          var action = event.target.textContent.trim();
+          // console.log(action)
+
+          toggleButtonText[action](event.target);
+          axios.post('/users/' + userId + '/act', { action: action })
+          .then(function (response) {
+    return response;
+  })
+  .catch(function (error) {
+    console.log(error.response.data);  
+     console.log(error.response.status);  
+     console.log(error.response.headers); 
+  });
+};
+  </script>
 
 
 

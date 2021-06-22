@@ -3,6 +3,8 @@ const Posts = require('../models/posts')
 const photos = require('../models/photos')
 const async = require('async');
 const mongoose = require('mongoose');
+const { DateTime } = require('luxon');
+
 
 const {body, validationResult} = require('express-validator');
 const posts = require('../models/posts');
@@ -55,8 +57,9 @@ exports.posts_delete_post = function(req,res,next){
 };
 
 exports.user_post = function(req,res,next)
-{
+{ var user_name = ""
   var id = mongoose.Types.ObjectId(req.params.postid);
+ 
   Posts.findById(id)
   .exec(function(err, userpost){
     if(err) {return next(err);}
@@ -65,10 +68,21 @@ exports.user_post = function(req,res,next)
       err.status = 404;
       return next(err);
     }
+    
 
     else
-    {
-      res.render('user_post', {title: userpost.post_name , postdetail: userpost.post_details , posturl: userpost.url ,userpostid: userpost.user_id.toString(), currentuser: req.user._id.toString()})
+    
+    { 
+      User.findById(userpost.user_id).exec(function(err,user){
+      if(err) {return next(err);}
+      
+      
+      user_name = user.username;
+      
+      const posted_at = DateTime.fromJSDate(userpost.posted_at).toLocaleString(DateTime.DATE_MED) 
+        res.render('user_post', {title: userpost.post_name , postdetail: userpost.post_details , posturl: userpost.url ,userpostid: userpost.user_id.toString(), postedAt:posted_at, user_name: user_name ,currentuser: req.user._id.toString()})
+    })
+    
     }
   })
 }

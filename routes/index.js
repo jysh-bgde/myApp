@@ -60,6 +60,12 @@ function (req, res){
   
 });
 
+router.post('/users/:id/act', isLoggedIn, (req,res,next)=> {
+  const action = req.body.action;
+
+  action==='Friend'? User.updateOne({_id: req.user._id}, {$addToSet:{friends: req.params.id}}, (err) => { if(err) {return next(err);} res.send('');} ) :  User.updateOne({_id: req.user._id}, {$pull:{friends: {$in: req.params.id}}}, (err) => { if(err) {return next(err);}  res.send('');} );
+})
+
 router.post('/posts/:id/act',isLoggedIn, (req, res, next) => {
   const action = req.body.action;
   // console.log(action)
