@@ -31,6 +31,12 @@
 div{
   color: #e8e3e3;
 }
+
+img {
+  margin: 10px 0px;
+  height: 200px;
+  width: 200px;
+}
   
     </style>
 </head>
@@ -84,11 +90,26 @@ div{
         
         <div class="row">
         <div class="col">
+
+            <div>
+              <%if (user.img.data==null){%>
+                <h3>NO DP</h3>
+                <%}else{%>
+              <img src="data:image/<%=user.img.contentType %>;base64,
+                 <%=user.img.data.toString('base64')%>">
+                 <%}%>
+                 <%if (currentuser._id.toString() === user._id.toString() ) {%>
+                 <div class="col">
+                  <a href="/users/<%= currentuser._id%>/profileimage"  style='display:inline;' class="btn btn-outline-success my-2">Change picture</a>
+                </div>
+                <%}%>
+           
+            </div>
           
             <h1 class='display-1 d-inline'> <%= user.username%></h1>
             <%if (currentuser._id.toString() !== user._id.toString() ) {%>
                 
-              
+              <!-- <a href="/users/<%currentuser._id%>/profileimage"  style='display:inline;' class="btn btn-outline-success btn-lg mx-5" data-user-id ="<%= user._id%>">Change profile picture</button> -->
              
               
             <% if(currentuser.friends.includes(user._id)) {%>
@@ -96,6 +117,11 @@ div{
             <%}else{%>
             <button onclick="actOnFriend(event);"  style='display:inline;' class="btn btn-outline-success btn-lg mx-5" data-user-id ="<%= user._id%>">Friend</button>
             <%}%>
+           
+              <!-- <div class="col">
+              <a href="/users/<%currentuser._id%>/profileimage"  style='display:inline;' class="btn btn-outline-success">Change picture</a>
+              </div> -->
+              
             <%}%>
 
 

@@ -124,7 +124,7 @@ div{
      <div class="row ">
        
        
-      <h1> <%= title %></h1>
+      <!-- <h1> <%= title %></h1> -->
       <!-- <ul>
       <% posts_list.forEach(function(post){ %>
       <div class="card  my-4" style="width: 18rem;">
@@ -139,9 +139,10 @@ div{
       </ul> -->
 
       <div class="col bg">
-        
+        <h1> <%= title %></h1>
         <% posts_list.forEach(function(post){ %>
           <div class="blog-preview ">
+           
             <div class="title">
               <h5 class="d-inline me-3" ><%= post.post_name %></h5>
               <small class="mx-3"><%= post.posted_at_formatted %> </small>
