@@ -92,11 +92,11 @@ img {
         <div class="col">
 
             <div>
-              <%if (user.img.data==null){%>
+              <%if (profilepic.img.data==null){%>
                 <h3>NO DP</h3>
                 <%}else{%>
-              <img src="data:image/<%=user.img.contentType %>;base64,
-                 <%=user.img.data.toString('base64')%>">
+              <img src="data:image/<%=profilepic.img.contentType %>;base64,
+                 <%=profilepic.img.data.toString('base64')%>">
                  <%}%>
                  <%if (currentuser._id.toString() === user._id.toString() ) {%>
                  <div class="col">

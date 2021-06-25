@@ -10,10 +10,27 @@ var passport = require('passport');
 // var bodyParser = require('body-parser');
 var LocalStrategy = require('passport-local');
 // var passportLocalMongoose = require('passport-local-mongoose');
-var User = require('../models/user');
+const async = require('async')
+
 var Post = require('../models/posts');
 var userController= require('../controllers/userController')
 let Pusher = require('pusher');
+var fs = require('fs');
+var multer = require('multer');
+var ProfilePhotos = require('../models/profilephotos')
+var storage = multer.diskStorage({
+  destination: (req,file,cb) => {
+    cb(null,'uploads')
+  },
+  filename: (req,file,cb) =>{
+    cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+var User = require('../models/user');
+
+var upload = multer({storage: storage})
+var path = require('path');
+
 
 
 const pusher = new Pusher({
@@ -88,25 +105,121 @@ router.post('/posts/:id/act',isLoggedIn, (req, res, next) => {
 router.get('/register', function(req,res,next){
   res.render('registration', {title: 'registration'});
 } )
-router.post("/register",(req,res)=>{
+router.post("/register",upload.single('image'),(req,res)=>{
     
-  User.register(new User({username: req.body.username,
-      password: req.body.password,
-      first_name:req.body.first_name,
-      Last_name: req.body.Last_name,
-      date_of_birth: req.body.date_of_birth,
-      country: req.body.country,
-      city: req.body.city,
-      gender: req.body.gender
-      }),req.body.password,function(err,user){
-      if(err){
-          console.log(err);
-          res.render("registration");
-      }
-  passport.authenticate("local")(req,res,function(){
-      res.redirect("/login");
-  })    
-  })
+  // User.register(new User({username: req.body.username,
+  //     password: req.body.password,
+  //     first_name:req.body.first_name,
+  //     Last_name: req.body.Last_name,
+  //     date_of_birth: req.body.date_of_birth,
+  //     country: req.body.country,
+  //     city: req.body.city,
+  //     gender: req.body.gender
+  //     }),req.body.password,function(err,user){
+  //     if(err){
+       
+  //         console.log(err);
+  //         res.render("registration");
+  //       }
+        
+  //       console.log(user);
+        
+       
+        
+  //     })
+
+      async.waterfall([
+        function(callback) {
+          // console.log(req.body.username)
+        //  User.find({'username': req.body.username }).exec(function(err, user){if(err){console.log(err);}
+        //  console.log(user._id);
+        // callback(null,user)
+        // })
+        User.register(new User({username: req.body.username,
+          password: req.body.password,
+          first_name:req.body.first_name,
+          Last_name: req.body.Last_name,
+          date_of_birth: req.body.date_of_birth,
+          country: req.body.country,
+          city: req.body.city,
+          gender: req.body.gender
+          }),req.body.password,function(err,user){
+          if(err){
+           
+              console.log(err);
+              res.render("registration");
+            }
+            
+            callback(null,user)
+            
+           
+            
+          })
+         
+        
+        },
+       function(user, callback){
+
+          ProfilePhotos.create({
+            user_id : user._id,
+            img: {
+              data: fs.readFileSync(path.join('C:/Users/User/Desktop/myApp/uploads/' + req.file.filename)),
+              contentType: 'image/png'
+            }
+          }, (err,item) => {
+            if(err){
+              console.log(err);
+            }
+            else {
+              // console.log(user_id)
+              item.save();
+           }
+           callback(null,item)
+         }
+         
+         )
+         
+        
+        }
+      ], function(err, results) {
+
+        // console.log(results)
+        
+
+
+        // results is now equal to: {one: 1, two: 2}
+    });
+
+    //   async ()=>{
+    //     const user = await User.find({'username': req.body.username })
+    //     console.log(user._id)
+       
+    //      ProfilePhotos.create({
+    //      user_id : user._id,
+    //      img: {
+    //        data: fs.readFileSync(path.join('C:/Users/User/Desktop/myApp/uploads/' + req.file.filename)),
+    //        contentType: 'image/png'
+    //      }
+    //    }, (err,item) => {
+    //      if(err){
+    //        console.log(err);
+    //      }
+    //      else {
+    //        console.log(user_id)
+    //       //  item.save();
+    //     }
+    //   }
+      
+    //   )
+      
+      
+      
+    // }
+    
+    res.redirect('/login');
+
+  
+
 })
 
 router.get("/logout",isLoggedIn,(req,res)=>{

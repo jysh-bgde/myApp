@@ -4,6 +4,7 @@ var router = express.Router();
 var userController = require('../controllers/userController')
 var fs = require('fs');
 var multer = require('multer');
+var ProfilePhotos = require('../models/profilephotos')
 var storage = multer.diskStorage({
   destination: (req,file,cb) => {
     cb(null,'uploads')
@@ -24,7 +25,7 @@ var path = require('path');
 
 router.get('/:userid',isLoggedIn, userController.user_profile )
 router.get('/:userid/profileimage', isLoggedIn, (req,res)=>{
-  User.find({_id : req.params.userid}, (err,items)=>{
+  User.find({user_id : req.params.userid}, (err,items)=>{
     if(err){console.log(err);
     res.status(500).send('An error occured', err);
   }
@@ -42,9 +43,9 @@ router.post('/:userid/profileimage', isLoggedIn, upload.single('image'), (req, r
     }
   }
 
-  User.updateOne({_id : req.params.userid}, obj, (err, item)=> {
+  ProfilePhotos.updateOne({user_id : req.params.userid}, obj, (err, item)=> {
     if(err){
-      console.log(err);
+      return next(err);
 
     }
     else {

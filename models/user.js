@@ -16,7 +16,6 @@ var UserSchema = new Schema(
     city: {type: String,  required: true, maxLength: 100},
     gender: {type: String,  required: true, maxLength: 100},
     liked_posts: [Schema.Types.ObjectId],
-    img: {data: Buffer, contentType: String},
     friends: [Schema.Types.ObjectId],
   },{timestamps:true}
   );

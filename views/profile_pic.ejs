@@ -131,11 +131,11 @@ div{
       <div>
           <div>
               <div>
-                <%if (currentuser.img.data==null){%>
+                <%if (profilepic.img.data==null){%>
                   <h3>NO DP</h3>
                   <%}else{%>
-                <img src="data:image/<%=currentuser.img.contentType %>;base64,
-                   <%=currentuser.img.data.toString('base64')%>">
+                <img src="data:image/<%=profilepic.img.contentType %>;base64,
+                   <%=profilepic.img.data.toString('base64')%>">
                    <%}%>
                  
               </div>

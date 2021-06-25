@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const {body, validationResult} = require('express-validator');
 const { render } = require('ejs');
+const ProfilePhotos = require('../models/profilephotos');
 
 
 
@@ -71,7 +72,11 @@ exports.user_profile = function(req,res,next){
     user_posts_list: function(callback){
       Posts.find({'user_id': req.user._id}).exec(callback)
     },
+    profile_pic: function(callback){
+      ProfilePhotos.find({'user_id': req.user._id}).exec(callback)
+    }
   }, function(err, results){
+    // console.log(results.profile_pic)
     if(err){return next(err);}
 
     if(results.user==null){
@@ -80,7 +85,7 @@ exports.user_profile = function(req,res,next){
       return next(err);
     }
     // console.log(results.user_posts_list)
-    res.render('user_profile',{title: results.user.username,
+    res.render('user_profile',{profilepic: results.profile_pic[0],title: results.user.username,
       user: results.user, user_posts_list: results.user_posts_list.sort(function(a, b) {
         var c = new Date(a.posted_at);
         var d = new Date(b.posted_at);
@@ -131,6 +136,9 @@ exports.user_profile = function(req,res,next){
           return c-d;
       });
       },
+      profile_pic: function(callback){
+        ProfilePhotos.find({'user_id': req.user._id}).exec(callback)
+      }
     }, function(err, results){
       if(err){return next(err);}
   
@@ -140,7 +148,7 @@ exports.user_profile = function(req,res,next){
         return next(err);
       }
       // console.log(posts)
-      res.render('user_profile',{title: results.user[0].username,
+      res.render('user_profile',{profilepic: results.profile_pic[0],title: results.user[0].username,
         user: results.user[0], user_posts_list: posts, currentuser: req.user})
   
   
